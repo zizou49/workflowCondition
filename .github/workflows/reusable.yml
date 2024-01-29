@@ -7,12 +7,16 @@ on:
         required: true
         default: dist
         type: string
+    secrets:
+        some-secret:
+            required: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output info
-        run: echo "Deploying...."
+        run: echo ${{secrets.some-secret}}
       - name: upload artifcats
         uses: actions/download-artifact@v3
         with:
