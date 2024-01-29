@@ -7,20 +7,29 @@ on:
         required: true
         default: dist
         type: string
-    secrets:
-        some-secret:
-            required: true
+    outputs:
+        result:
+            description: The result of deplying
+            value: ${{jobs.deploy.outputs.me}}
+    #secrets:
+        #some-secret:
+            #required: true
 
 jobs:
   deploy:
+    outputs:
+        me: ${{steps.set-result.outputs.step-result}}
     runs-on: ubuntu-latest
     steps:
       - name: Output info
-        run: echo ${{secrets.some-secret}}
+        run: echo "deploying..."
       - name: upload artifcats
         uses: actions/download-artifact@v3
         with:
           name: ${{inputs.artifcat-name}}
       - name: List files
         run: ls
+      - name: set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT
 
