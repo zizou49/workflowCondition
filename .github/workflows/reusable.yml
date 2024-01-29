@@ -10,7 +10,7 @@ on:
     outputs:
         result:
             description: The result of deplying
-            value: ${{jobs.deploy.outputs.me}}
+            value: ${{jobs.deploy.outputs.outcome}}
     #secrets:
         #some-secret:
             #required: true
@@ -18,7 +18,7 @@ on:
 jobs:
   deploy:
     outputs:
-        me: ${{steps.set-result.outputs.step-result}}
+        outcome: ${{steps.set-result.outputs.step-result}}
     runs-on: ubuntu-latest
     steps:
       - name: Output info
